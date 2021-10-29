@@ -1,4 +1,4 @@
-from english_words import english_words_lower_set as words
+from word_list import words
 import random as rand
 from draw import Draw
 
@@ -6,7 +6,7 @@ from draw import Draw
 class Game:
 
     def __init__(self, lives=6):
-        self.word = [i for i in rand.choice(list(words))]
+        self.word = rand.choice(words)
         self.hangman_drawing = Draw()
         self.hangman_drawing.draw()
         self.guess = ['_' for _ in self.word]

@@ -1,17 +1,18 @@
 import curses
 from game import Game
+from logo import logo
 
 menu = ['Play', 'Exit']
 # = ['Exit']
 
-
+print(logo)
 
 def print_menu(stdscr, selected_row_idx):
     stdscr.clear()
     h, w = stdscr.getmaxyx()
     x1 = w//2-len('HANGMAN GAME')//2
     
-    stdscr.addstr(0, x1, 'HANGMAN GAME')
+    stdscr.addstr(0, x1, logo)
     for idx, row in enumerate(menu):
         x = w//2 - len(row)//2
         y = h//2 - len(menu)//2 + idx
@@ -75,7 +76,11 @@ def main(stdscr):
 
 
                 if gam.state == 0:
+                    stdscr.clear()
                     stdscr.addstr(h // 2, w // 2 - len('You Lose!') // 2, 'You Lose!')
+                    stdscr.getch()
+                    break
+                if gam.state == 1:
                     break
 
                 stdscr.clear()
