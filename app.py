@@ -1,6 +1,9 @@
 import curses
 
+
 menu = ['Play', 'Exit']
+# = ['Exit']
+
 
 
 def print_menu(stdscr, selected_row_idx):
@@ -8,7 +11,7 @@ def print_menu(stdscr, selected_row_idx):
     h, w = stdscr.getmaxyx()
     x1 = w//2-len('HANGMAN GAME')//2
     
-    stdscr.addstr(0,x1,'HANGMAN GAME')
+    stdscr.addstr(0, x1, 'HANGMAN GAME')
     for idx, row in enumerate(menu):
         x = w//2 - len(row)//2
         y = h//2 - len(menu)//2 + idx
@@ -43,7 +46,7 @@ def main(stdscr):
     # print the menu
     print_menu(stdscr, current_row)
 
-    while 1:
+    while True:
         key = stdscr.getch()
 
         if key == curses.KEY_UP and current_row > 0:
@@ -51,11 +54,32 @@ def main(stdscr):
         elif key == curses.KEY_DOWN and current_row < len(menu)-1:
             current_row += 1
         elif key == curses.KEY_ENTER or key in [10, 13]:
-            print_center(stdscr, "You selected '{}'".format(menu[current_row]))
-            stdscr.getch()
-            # if user selected last row, exit the program
+
             if current_row == len(menu)-1:
                 break
+            stdscr.clear()
+            gam = Game()
+            stdscr.addstr(h // 2, w // 2 - len(gam.guess) // 2, gam.guess)
+            h, w = stdscr.getmaxyx()
+            while True:
+                stdscr.clear()
+                selected = stdscr.getch()
+                gam.check(selected)
+                gam.upddate_state
+                if gam.state == 0:
+                    stdscr.addstr(h//2, w//2 - len('You Lose!')//2, 'You Lose!')
+                    break
+                stdscr.addstr(h//2, w//2 - len(gam.guess)//2, gam.guess)
+
+
+
+
+
+
+
+
+
+
 
         print_menu(stdscr, current_row)
 
