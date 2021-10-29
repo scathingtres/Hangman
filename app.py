@@ -1,5 +1,5 @@
 import curses
-
+import game
 
 menu = ['Play', 'Exit']
 # = ['Exit']
