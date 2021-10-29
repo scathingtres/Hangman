@@ -19,18 +19,36 @@ class Game:
         if selected in self.word:
             for ind in [i for i, x in enumerate(self.word) if x == selected]:
                 self.guess[ind] = selected
-                del self.word[ind]
-                return 'Correct !'
+
         else:
             self.hangman_drawing.draw()
             self.lives -= 1
-            return f'Wrong!\n Lives left {self.lives}'
+
+        return
 
     def update_state(self):
-        if not self.word:
+        if self.guess == self.word:
             self.state = 1
         if self.lives == 0:
             self.state = 0
 
+
+
+
+
+if __name__ =='__main__':
+    while True:
+        gam = Game()
+       # h, w = stdscr.getmaxyx()
+        print(''.join(gam.word))
+        while True:
+
+            selected = input('<<')
+            gam.check(selected)
+            gam.update_state()
+            print(''.join(gam.guess))
+            if gam.state == 0:
+                break
+        break
 
 

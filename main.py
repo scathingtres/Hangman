@@ -2,8 +2,8 @@ from english_words import english_words_lower_set as words
 import random as rand
 from draw import Draw
 import curses
-word = [i for i in rand.choice(list(words))]
-guess = ['_' for i in word]
+word = rand.choice(list(words))
+guess = ['_' for _ in word]
 lives = 6
 hangman = Draw()
 hangman.draw()
@@ -18,12 +18,12 @@ while True:
            guess[ind] = letter
        print(guess)
        if guess == word:
-           hangman.drawing()
+           print(hangman)
            print('WON!')
            break
     else:
         hangman.draw()
-        hangman.drawing()
+        print(hangman)
         lives -= 1
         print(f'Lives left {lives}')
         if lives == 0:

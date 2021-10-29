@@ -1,5 +1,5 @@
 import curses
-import game
+from game import Game
 
 menu = ['Play', 'Exit']
 # = ['Exit']
@@ -59,19 +59,29 @@ def main(stdscr):
                 break
             stdscr.clear()
             gam = Game()
-            stdscr.addstr(h // 2, w // 2 - len(gam.guess) // 2, gam.guess)
             h, w = stdscr.getmaxyx()
+            stdscr.addstr(h // 2, w // 2 - len(gam.word) // 2, ''.join(gam.word))
+            h, w = stdscr.getmaxyx()
+            stdscr.getch()
             while True:
-                stdscr.clear()
-                selected = stdscr.getch()
-                gam.check(selected)
-                gam.upddate_state
+
+                stdscr.addstr(0, 0, str(gam.hangman_drawing))
+                stdscr.addstr(h // 2, w // 2, ' '.join(gam.guess))
+                sel = stdscr.getkey()
+                gam.check(sel)
+                gam.update_state()
+
+
+
+
                 if gam.state == 0:
-                    stdscr.addstr(h//2, w//2 - len('You Lose!')//2, 'You Lose!')
+                    stdscr.addstr(h // 2, w // 2 - len('You Lose!') // 2, 'You Lose!')
                     break
-                stdscr.addstr(h//2, w//2 - len(gam.guess)//2, gam.guess)
+
+                stdscr.clear()
 
 
+            break
 
 
 
